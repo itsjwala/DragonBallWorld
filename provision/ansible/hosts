@@ -1,10 +1,10 @@
+[all:vars]
+username=itsjwala
+github_ssh_key_url=https://github.com/itsjwala.keys
+
 [DragonBallWorld]
 goku
 gohan
-
-[DragonBallWorld:vars]
-username=itsjwala
-github_ssh_key_url=https://github.com/itsjwala.keys
 
 [Namek]
 chini

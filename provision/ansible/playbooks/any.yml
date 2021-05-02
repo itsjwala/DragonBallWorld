@@ -1,7 +1,7 @@
 ---
 
 - name: provision cloud resources
-  hosts: DragonBallWorld
+  hosts: all
   roles:
     - role: common 
       become: true  

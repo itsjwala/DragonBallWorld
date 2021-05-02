@@ -30,9 +30,18 @@
     key: "{{github_ssh_key_url}}"
   when: github_ssh_key_url != None
 
+# remove other users explicitly
 
-- name: remove pi user
+- name: remove login users apart from "{{ username }}"
   user:
-    name: pi
+    name: '{{ item }}}'
     state: absent
     remove: yes
+    # force: yes
+  with_items:
+    - pi
+    - ubuntu
+    - centos
+  tags:
+    - remove_user
+    - never 
