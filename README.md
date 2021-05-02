@@ -5,7 +5,7 @@
   <p align="center">
     <i> my homeserver setup</i>
   </p>
-    <img src="./docs/display.jpeg" alt="dragon ball universe"> 
+    <img style="width:100%" src="./docs/display.jpeg" alt="dragon ball universe"> 
     <br/>
     <small> Image courtesy <a href="https://www.fanpop.com/clubs/dragon-ball-z/images/2006451/title/dragonballz-photo">fanpop.com</a></small>
 </div>
