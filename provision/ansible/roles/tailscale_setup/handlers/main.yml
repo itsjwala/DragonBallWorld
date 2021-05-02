@@ -1,0 +1,22 @@
+- name: enable tailscaled service
+  service:
+    name: tailscaled
+    state: started
+    enabled: yes
+
+- name: Wait for few seconds
+  listen: Confirm Tailscale is Connected
+  wait_for:
+    delay: 10
+    timeout: 0
+
+- name: Tailscale Status
+  listen: Confirm Tailscale is Connected
+  command: tailscale status
+  register: handlers_tailscale_status
+
+- name: Assert Tailscale is Connected
+  listen: Confirm Tailscale is Connected
+  assert:
+    that:
+      - '"100." in handlers_tailscale_status.stdout'
