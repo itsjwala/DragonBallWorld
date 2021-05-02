@@ -1,0 +1,6 @@
+.terraform
+crash.log
+*.backup
+.env
+
+*.lock.hcl
