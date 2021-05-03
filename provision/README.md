@@ -100,3 +100,11 @@ check `roles/common` to check what it does.
 ```sh
 ansible-playbook playbooks/any.yml --inventory hosts --limit gohan --tag role-common
 ```
+
+
+* tailscale setup
+
+generate auth token from tailscale and add under `vars` 
+```sh
+ansible-playbook playbooks/any.yml --inventory hosts --limit gohan --tag role-tailscale_setup --ask-vault-pass
+```
