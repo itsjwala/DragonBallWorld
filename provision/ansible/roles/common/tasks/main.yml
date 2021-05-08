@@ -1,6 +1,12 @@
 
 ---
 
+- name: set is_pi flag setup
+  set_fact:
+    is_pi: "{{ ansible_architecture.startswith('arm') }}"
+  tags:
+    - always
+
 - import_tasks: apt.yml
   tags:
     - apt

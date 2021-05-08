@@ -7,7 +7,13 @@
       become: true  
       tags: 
         - role-common
+
     - role: tailscale_setup
       become: true
       tags:
         - role-tailscale_setup
+
+    - role: docker_setup
+      become: true
+      tags:
+        - role-docker_setup

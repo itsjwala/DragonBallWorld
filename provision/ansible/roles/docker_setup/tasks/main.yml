@@ -1,0 +1,74 @@
+# sudo apt-get install *
+- name: Install docker packages
+  apt:
+    name:
+      [
+        "apt-transport-https",
+        "ca-certificates",
+        "curl",
+        "gnupg-agent",
+        "software-properties-common",
+      ]
+    state: present
+    update_cache: yes
+
+# curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+- name: Add Docker s official GPG key
+  apt_key:
+    url: https://download.docker.com/linux/{{ ansible_os_family | lower }}/gpg
+    state: present
+
+# sudo apt-key fingerprint 0EBFCD88
+- name: Verify that we have the key with the fingerprint
+  apt_key:
+    id: 0EBFCD88
+    state: present
+
+# sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+- name: Set up the stable repository
+  apt_repository:
+    repo: "deb [arch={{ 'armhf' if is_pi else 'amd64' }}] https://download.docker.com/linux/{{ 'raspbian' if is_pi else (ansible_distribution | lower) }} {{ ansible_distribution_release | lower }} stable"
+    state: present
+    update_cache: yes
+
+# sudo apt-get update
+- name: Update apt packages
+  apt:
+    update_cache: yes
+
+# sudo apt-get install docker-ce
+- name: Install docker
+  apt:
+    state: present
+    update_cache: yes
+    name: ["docker-ce", "docker-ce-cli", "containerd.io"]
+  notify: Start docker on boot
+
+# sudo groupadd docker
+- name: Create "docker" group
+  group:
+    name: "docker"
+    state: present
+
+# sudo usermod -aG docker <user>
+- name: Add remote user to "docker" group
+  user:
+    name: "{{username}}"
+    group: "docker"
+    append: yes
+
+- name: Configure sane defaults for logging (docker daemon)
+  template:
+    src: "daemon.json"
+    dest: "/etc/docker/daemon.json"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  notify: Restart Docker
+
+- name: Install Docker-compose
+  shell: sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+- name: Changing perm of /usr/local/bin/docker-compose
+  file: dest=/usr/local/bin/docker-compose mode=a+x
