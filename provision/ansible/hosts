@@ -4,7 +4,7 @@ github_ssh_key_url=https://github.com/itsjwala.keys
 
 [DragonBallWorld]
 goku
-gohan
+gohan is_server=True
 
 [Namek]
 chini

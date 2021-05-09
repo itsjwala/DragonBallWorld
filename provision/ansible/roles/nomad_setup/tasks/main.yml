@@ -25,9 +25,13 @@
 
 - name: make data dir
   file:
-    path: /opt/nomad/data
+    path: "{{ item }}"
     state: directory
+  with_items:
+      - /opt/nomad/data
+      - /etc/nomad
   
+
 - name: add daemon.hcl file 
   template:
     src: daemon.hcl.j2

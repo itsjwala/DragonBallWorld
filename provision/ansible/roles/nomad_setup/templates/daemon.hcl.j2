@@ -4,13 +4,18 @@ bind_addr = "{{ ansible_facts.tailscale0.ipv4.address }}"
 
 datacenter = "DragonBallWorld"
 
+{% if is_server is defined and is_server %}
 server {
   enabled          = true
   bootstrap_expect = 1
 }
+{% endif %}
 
 client {
   enabled       = true
+  {% if is_server is not defined or is_server is defined and not is_server %}
+  servers = [ "{{ hostvars['gohan']['ansible_facts']['tailscale0']['ipv4']['address'] }}:4647" ]
+  {% endif %}
   host_network "tailscale" {
     cidr = "{{ ansible_facts.tailscale0.ipv4.address }}/32"
     reserved_ports = "22"
