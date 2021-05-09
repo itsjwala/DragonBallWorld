@@ -1,0 +1,37 @@
+- name: install nomad 1.04 version
+  unarchive:
+    # Rpi4 is arm64, but my raspbianOS runs on armhf compatible 32bit + high floating capability mode
+    src: https://releases.hashicorp.com/nomad/1.0.4/nomad_1.0.4_linux_{{ 'arm' if is_pi else 'amd64' }}.zip
+    dest:  /usr/local/bin/
+    remote_src: yes
+    mode: '0755'
+  become: true
+
+
+- name: add service 
+  template: 
+    src: nomad.service.j2 
+    dest: /etc/systemd/system/nomad.service
+  notify:
+    - reload systemctl
+
+- name: enable service
+  service:
+    name: nomad
+    enabled: yes
+
+- name: remove existing config files
+  shell: /bin/rm -rf /etc/nomad/*.hcl
+
+- name: make data dir
+  file:
+    path: /opt/nomad/data
+    state: directory
+  
+- name: add daemon.hcl file 
+  template:
+    src: daemon.hcl.j2
+    dest: /etc/nomad/daemon.hcl
+  tags: 
+      - nomad_config
+  notify: Restart nomad

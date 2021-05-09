@@ -17,3 +17,8 @@
       become: true
       tags:
         - role-docker_setup
+
+    - role: nomad_setup
+      become: true
+      tags:
+        - role-nomad_setup

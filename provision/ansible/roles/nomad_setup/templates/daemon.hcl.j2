@@ -1,0 +1,32 @@
+data_dir  = "/opt/nomad/data"
+
+bind_addr = "{{ ansible_facts.tailscale0.ipv4.address }}"
+
+datacenter = "DragonBallWorld"
+
+server {
+  enabled          = true
+  bootstrap_expect = 1
+}
+
+client {
+  enabled       = true
+  host_network "tailscale" {
+    cidr = "{{ ansible_facts.tailscale0.ipv4.address }}/32"
+    reserved_ports = "22"
+  }
+}
+
+plugin "docker" {
+  config {
+    volumes {
+      enabled      = true
+    }
+  }
+}
+
+plugin "raw_exec" {
+  config {
+    enabled = true
+  }
+}
