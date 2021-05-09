@@ -104,7 +104,20 @@ ansible-playbook playbooks/any.yml --inventory hosts --limit gohan --tag role-co
 
 * tailscale setup
 
-generate auth token from tailscale and add under `vars` 
+generate auth token from tailscale and add under `vars`
+
 ```sh
-ansible-playbook playbooks/any.yml --inventory hosts --limit gohan --tag role-tailscale_setup --ask-vault-pass
+ansible-playbook playbooks/any.yml --inventory hosts --limit gohan,goku --tag role-tailscale_setup # --ask-vault-pass 
+```
+
+* docker setup
+
+```sh
+ansible-playbook playbooks/any.yml --inventory hosts --limit gohan,goku --tag role-docker_setup # --ask-vault-pass 
+```
+
+* nomad setup
+
+```sh
+ansible-playbook playbooks/any.yml --inventory hosts --limit gohan,goku --tag role-docker_setup # --ask-vault-pass 
 ```
