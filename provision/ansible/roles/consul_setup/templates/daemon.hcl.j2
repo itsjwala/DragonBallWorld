@@ -10,7 +10,7 @@ bootstrap_expect = 1
 client_addr = "{{ ansible_facts.tailscale0.ipv4.address }}"
 bind_addr = "{{ ansible_facts.tailscale0.ipv4.address }}"
 
-{% if is_server is not defined or (is_server is defined and is_server) %}
+{% if is_server is not defined or (is_server is defined and not is_server) %}
 retry_join = ["{{ hostvars['gohan']['ansible_facts']['tailscale0']['ipv4']['address'] }}"]
 {% endif %}
 
