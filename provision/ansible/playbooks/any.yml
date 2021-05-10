@@ -22,3 +22,8 @@
       become: true
       tags:
         - role-nomad_setup
+
+    - role: consul_setup
+      become: true
+      tags:
+        - role-consul_setup

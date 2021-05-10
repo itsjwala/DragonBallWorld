@@ -8,14 +8,12 @@ datacenter = "DragonBallWorld"
 server {
   enabled          = true
   bootstrap_expect = 1
+  encrypt = "{{ nomad_encryption_key }}"
 }
 {% endif %}
 
 client {
   enabled       = true
-  {% if is_server is not defined or is_server is defined and not is_server %}
-  servers = [ "{{ hostvars['gohan']['ansible_facts']['tailscale0']['ipv4']['address'] }}:4647" ]
-  {% endif %}
   host_network "tailscale" {
     cidr = "{{ ansible_facts.tailscale0.ipv4.address }}/32"
     reserved_ports = "22"
@@ -34,4 +32,16 @@ plugin "raw_exec" {
   config {
     enabled = true
   }
+}
+
+telemetry {
+  collection_interval = "15s"
+  disable_hostname = true
+  prometheus_metrics = true
+  publish_allocation_metrics = true
+  publish_node_metrics = true
+}
+
+consul {
+  address = "{{ ansible_facts.tailscale0.ipv4.address }}:8500"
 }

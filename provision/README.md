@@ -116,8 +116,18 @@ ansible-playbook playbooks/any.yml --inventory hosts --limit gohan,goku --tag ro
 ansible-playbook playbooks/any.yml --inventory hosts --limit gohan,goku --tag role-docker_setup # --ask-vault-pass 
 ```
 
+
+* consul setup
+
+should be done before nomad setup, because in nomad config we're using consul to do discovery of nomad clients
+
+```sh
+ansible-playbook playbooks/any.yml --inventory hosts --limit gohan,goku --tag role-consul_setup # --ask-vault-pass 
+```
+
 * nomad setup
 
 ```sh
-ansible-playbook playbooks/any.yml --inventory hosts --limit gohan,goku --tag role-docker_setup # --ask-vault-pass 
+ansible-playbook playbooks/any.yml --inventory hosts --limit gohan,goku --tag role-nomad_setup # --ask-vault-pass 
+
 ```

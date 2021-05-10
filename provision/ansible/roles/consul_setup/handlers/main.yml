@@ -1,0 +1,4 @@
+- name: Restart consul
+  systemd:
+    name: consul
+    state: restarted

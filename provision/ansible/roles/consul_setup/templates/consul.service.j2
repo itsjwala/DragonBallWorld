@@ -1,0 +1,19 @@
+[Unit]
+Description="HashiCorp Consul - A service mesh solution"
+Documentation=https://www.consul.io/
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+ExecReload=/bin/kill --signal HUP $MAINPID
+ExecStart=/usr/local/bin/consul agent -config-dir=/etc/consul/
+KillMode=process
+KillSignal=SIGINT
+LimitNOFILE=infinity
+LimitNPROC=infinity
+Restart=on-failure
+RestartSec=2
+TasksMax=infinity
+
+[Install]
+WantedBy=multi-user.target

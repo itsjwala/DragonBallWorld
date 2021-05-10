@@ -1,0 +1,17 @@
+datacenter = "DragonBallWorld"
+data_dir = "/opt/consul/data"
+encrypt = "{{ consul_encryption_key }}"
+
+{% if is_server is defined and is_server %}
+server = true
+bootstrap_expect = 1
+{% endif %}
+
+client_addr = "{{ ansible_facts.tailscale0.ipv4.address }}"
+bind_addr = "{{ ansible_facts.tailscale0.ipv4.address }}"
+
+{% if is_server is not defined or (is_server is defined and is_server) %}
+retry_join = ["{{ hostvars['gohan']['ansible_facts']['tailscale0']['ipv4']['address'] }}"]
+{% endif %}
+
+ui = true

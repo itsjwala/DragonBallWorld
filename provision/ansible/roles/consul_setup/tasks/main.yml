@@ -1,11 +1,11 @@
 - include_vars: secrets.yml
   tags:
     - always
-    
-- name: install nomad 1.04 version
+
+- name: install consul 1.9.5 version
   unarchive:
     # Rpi4 is arm64, but my raspbianOS runs on armhf compatible 32bit + high floating capability mode
-    src: https://releases.hashicorp.com/nomad/1.0.4/nomad_1.0.4_linux_{{ 'arm' if is_pi else 'amd64' }}.zip
+    src: https://releases.hashicorp.com/consul/1.9.5/consul_1.9.5_linux_{{ 'armhfv6' if is_pi else 'amd64' }}.zip
     dest:  /usr/local/bin/
     remote_src: yes
     mode: '0755'
@@ -14,32 +14,34 @@
 
 - name: add service 
   template: 
-    src: nomad.service.j2 
-    dest: /etc/systemd/system/nomad.service
+    src: consul.service.j2 
+    dest: /etc/systemd/system/consul.service
   notify:
     - reload systemctl
+  tags:
+    - consul_config
 
 - name: enable service
   service:
-    name: nomad
+    name: consul
     enabled: yes
 
 - name: remove existing config files
-  shell: /bin/rm -rf /etc/nomad/*.hcl
+  shell: /bin/rm -rf /etc/consul/*.hcl
 
 - name: make data dir
   file:
     path: "{{ item }}"
     state: directory
   with_items:
-      - /opt/nomad/data
-      - /etc/nomad
+      - /opt/consul/data
+      - /etc/consul
   
 
 - name: add daemon.hcl file 
   template:
     src: daemon.hcl.j2
-    dest: /etc/nomad/daemon.hcl
+    dest: /etc/consul/daemon.hcl
   tags: 
-      - nomad_config
-  notify: Restart nomad
+      - consul_config
+  notify: Restart consul
