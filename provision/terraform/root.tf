@@ -5,3 +5,10 @@ module "node1" {
   }
   node_label = "node1"
 }
+
+module "samba" {
+  source = "./modules/samba"
+  providers = {
+    nomad = nomad
+  }
+}
