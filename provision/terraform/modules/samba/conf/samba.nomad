@@ -1,16 +1,28 @@
-job "samba" {
+job "samba-job" {
   datacenters = ["DragonBallWorld"]
   type        = "service"
 
 
-  group "samba" {
+  group "samba-group" {
+    
+    constraint {
+      attribute = "$${attr.unique.hostname}"
+      value     = "gohan"
+    }
 
     network {
 
-      port "samba-port" {
+      port "samba-port-tailscale" {
+        static = 445
+        to     = 445
+        host_network = "tailscale"
+      }
+      
+      port "samba-port-default" {
         static = 445
         to     = 445
       }
+
     }
 
     restart {
@@ -20,11 +32,7 @@ job "samba" {
       mode     = "fail"
     }
 
-    task "samba" {
-      constraint {
-        attribute = "$${attr.unique.hostname}"
-        value     = "gohan"
-      }
+    task "samba-task" {
 
       driver = "docker"
 
@@ -46,7 +54,7 @@ job "samba" {
           readonly = true
         }
 
-        ports = ["samba-port"]
+        ports = ["samba-port-tailscale","samba-port-default"]
       }
 
       resources {
