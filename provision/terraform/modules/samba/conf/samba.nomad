@@ -61,6 +61,41 @@ job "samba-job" {
         cpu    = 200
         memory = 200
       }
+      
+      service {
+        name = "samba-tailscale"
+        tags =  ["samba"]
+        port = "samba-port-tailscale"
+        
+        check {
+          type     = "tcp"
+          port     = "samba-port-tailscale"
+          interval = "10s"
+          timeout  = "2s"
+        }
+
+        // will decide if required differently for tailscale check port or not
+        // check_restart {
+        //     limit = 3
+        //     grace = "90s"
+        //     ignore_warnings = false
+        // }
+
+      }
+
+      service {
+        name = "samba-lan"
+        tags =  ["samba"]
+        port =  "samba-port-default"
+
+        check {
+          type     = "tcp"
+          port     = "samba-port-default"
+          interval = "10s"
+          timeout  = "2s"
+        }
+        
+      }
 
       template {
         data = <<EOF
