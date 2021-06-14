@@ -1,0 +1,12 @@
+[Unit]
+BindTo=%i.device
+After=%i.device
+After=rc-local.service
+
+[Service]
+#Type=oneshot
+TimeoutStartSec=0
+Environment=DEVNAME=%I
+ExecStart=/usr/share/usbmount/usbmount add
+ExecStopPost=/usr/share/usbmount/usbmount remove
+RemainAfterExit=yes

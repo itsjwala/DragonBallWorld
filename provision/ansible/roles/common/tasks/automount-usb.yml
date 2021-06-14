@@ -1,0 +1,42 @@
+
+
+- name: create dir /etc/systemd/system/systemd-udevd.service.d
+  file:
+    path: /etc/systemd/system/systemd-udevd.service.d
+    state: directory
+
+- name: set custom mount options 
+  copy:
+    content:  "[Service]\nPrivateMounts=no\nMountFlags=shared\n"
+    dest: /etc/systemd/system/systemd-udevd.service.d/00-my-custom-mountflags.conf
+
+- name: do systemd daemon reload
+  shell: systemctl daemon-reexec
+
+- name: reload systemd-udevd.service 
+  service:  
+    name: systemd-udevd
+    state: restarted
+
+- name: create usbmount rules
+  template: 
+    src: usbmount.rules.j2
+    dest: /etc/udev/rules.d/usbmount.rules
+
+- name: copy usbmount.conf
+  template: 
+    src: usbmount.conf.j2
+    dest: /etc/usbmount/usbmount.conf
+
+
+- name: add service 
+  template: 
+    src: usbmount@.service.j2
+    dest: /etc/systemd/system/usbmount@.service
+  notify:
+    - reload systemctl
+
+- name: enable service
+  service:
+    name: usbmount@
+    enabled: yes

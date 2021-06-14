@@ -30,3 +30,8 @@
 - import_tasks: users.yml
   tags:
     - user
+
+- import_tasks: automount-drives.yml
+  when: is_pi
+  tags:
+    - automount-drives
