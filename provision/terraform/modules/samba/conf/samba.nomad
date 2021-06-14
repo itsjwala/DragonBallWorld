@@ -46,10 +46,9 @@ job "samba-job" {
           target = "/etc/samba" 
         }
 
-        // Bind the data directory to preserve certs.
         mount {
           type     = "bind"
-          source   = "/mnt" # Bind mount the template from `NOMAD_TASK_DIR`
+          source   = "/media"
           target   = "/share"
           readonly = true
         }

@@ -31,7 +31,12 @@
   tags:
     - user
 
-- import_tasks: automount-drives.yml
+- import_tasks: automount-usb.yml
   when: is_pi
   tags:
-    - automount-drives
+    - automount-usb
+
+- import_tasks: harddrive-static-mount.yml
+  when: is_pi
+  tags:
+    - harddrive-static-mount

@@ -1,0 +1,18 @@
+- name: mount family shared storage
+  mount:
+    src: UUID=01D475E14CF9D5C0
+    path: /media/FamilySharedStorage
+    fstype: ntfs
+    boot: yes
+    dump: "0"
+    state: mounted
+
+
+- name: mount entertainment
+  mount:
+    src: UUID=01D475E155813710
+    path: /media/Entertainment
+    fstype: ntfs
+    boot: yes
+    dump: "0"
+    state: mounted
