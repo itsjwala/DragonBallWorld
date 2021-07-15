@@ -13,7 +13,7 @@ init: unseal
 	- terraform14 init -var-file=secrets.tfvars 
 
 apply: unseal
-	- terraform14 apply -var-file=secrets.tfvars
+	- terraform14 apply -var-file=secrets.tfvars --auto-approve
 
 lint:
 	- terraform14 validate && terraform14 fmt -recursive

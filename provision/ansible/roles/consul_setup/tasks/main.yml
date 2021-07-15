@@ -45,3 +45,14 @@
   tags: 
       - consul_config
   notify: Restart consul
+
+
+- name: set CONSUL_ADDR in .bashrc for ease
+  lineinfile:
+    dest: "{{ ansible_env.HOME }}/.bashrc"
+    regexp: "^export CONSUL_ADDR"
+    backrefs: yes
+    line: |
+      export CONSUL_ADDR=http://{{ ansible_facts.tailscale0.ipv4.address }}:8500
+  tags:
+      - bashrc

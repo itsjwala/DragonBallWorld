@@ -43,3 +43,13 @@
   tags: 
       - nomad_config
   notify: Restart nomad
+
+- name: set NOMAD_ADDR in .bashrc for ease
+  lineinfile:
+    dest: "{{ ansible_env.HOME }}/.bashrc"
+    regexp: "^export NOMAD_ADDR"
+    backrefs: yes
+    line: |
+      export NOMAD_ADDR=http://{{ ansible_facts.tailscale0.ipv4.address }}:4646
+  tags:
+      - bashrc
