@@ -36,8 +36,6 @@
   with_items:
       - /opt/consul/data
       - /etc/consul
-  
-
 - name: add daemon.hcl file 
   template:
     src: daemon.hcl.j2
@@ -45,6 +43,14 @@
   tags: 
       - consul_config
   notify: Restart consul
+
+- name: setup dns resolver as consul 
+  template:
+    src: resolved.conf.j2
+    dest: /etc/systemd/resolved.conf
+  tags: 
+      - consul_config
+  notify: Restart systemd-resolved
 
 
 - name: set CONSUL_ADDR in .bashrc for ease

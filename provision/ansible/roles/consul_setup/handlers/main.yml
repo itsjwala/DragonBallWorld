@@ -2,3 +2,9 @@
   systemd:
     name: consul
     state: restarted
+
+- name: Restart systemd-resolved
+  systemd:
+    name: systemd-resolved
+    daemon_reload: yes
+    state: restarted
