@@ -68,9 +68,11 @@
   notify: Restart Docker
 
 - name: Install Docker-compose
-  shell: sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  shell: sudo curl -L "https://github.com/docker/compose/releases/download/1.29.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   when: not is_pi 
+  tags: docker_compose
 
 - name: Changing perm of /usr/local/bin/docker-compose
   file: dest=/usr/local/bin/docker-compose mode=a+x
   when: not is_pi
+  tags: docker_compose
