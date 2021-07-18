@@ -48,10 +48,19 @@
   template:
     src: resolved.conf.j2
     dest: /etc/systemd/resolved.conf
+  when: not is_pi
   tags: 
       - consul_config
   notify: Restart systemd-resolved
 
+# requires reboot of pi
+- name: setup dns resolver as consul 
+  template:
+    src: resolvconf.conf.j2
+    dest: /etc/resolvconf.conf
+  when: is_pi
+  tags: 
+      - consul_config
 
 - name: set CONSUL_ADDR in .bashrc for ease
   lineinfile:
