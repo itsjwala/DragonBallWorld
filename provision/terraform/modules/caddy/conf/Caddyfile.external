@@ -1,0 +1,9 @@
+:80 {
+    {{ range service "fmd-wordpress" }}
+    reverse_proxy {{ .Address }}:{{ .Port }}
+    {{ end }}
+}
+
+:8080 {
+    respond /health-check 200
+}

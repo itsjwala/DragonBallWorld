@@ -23,3 +23,11 @@ module "wordpress_fmd" {
     nomad = nomad
   }
 }
+
+module "caddy" {
+  source = "./modules/caddy"
+  
+  providers = {
+    nomad = nomad
+  }
+}
