@@ -9,3 +9,21 @@ variable "fmd_db_name" {
   sensitive   = true
   description = "fmd db name"
 }
+
+variable "fmd_wordpress_user" {
+  type        = string
+  sensitive   = true
+  description = "fmd wordpress user"
+}
+
+variable "fmd_wordpress_password" {
+  type        = string
+  sensitive   = true
+  description = "fmd wordpress password"
+}
+
+variable "fmd_wordpress_email" {
+  type        = string
+  sensitive   = true
+  description = "fmd wordpress email"
+}

@@ -129,7 +129,7 @@ job "wordpress_fmd" {
       driver = "docker"
 
       config {
-        image = "docker.io/bitnami/wordpress:5"
+        image = "ghcr.io/itsjwala/wordpress:fmd"
 
         // bind mount mysql directory for persistence
         mount {
@@ -145,7 +145,11 @@ job "wordpress_fmd" {
         BITNAMI_DEBUG = "true"
         WORDPRESS_DATABASE_USER = "${fmd_db_user}"
         WORDPRESS_DATABASE_NAME = "${fmd_db_name}"
+        WORDPRESS_USERNAME      = "${fmd_wordpress_user}"
+        WORDPRESS_PASSWORD      = "${fmd_wordpress_password}"
+        WORDPRESS_EMAIL         = "${fmd_wordpress_email}"
       }
+      
       template {
           data = <<EOH
         {{- with service "fmd-db" }}

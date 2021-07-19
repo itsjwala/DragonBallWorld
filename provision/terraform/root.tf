@@ -18,6 +18,9 @@ module "wordpress_fmd" {
   
   fmd_db_user     = var.fmd_db_user
   fmd_db_name     = var.fmd_db_name
+  fmd_wordpress_user      = var.fmd_wordpress_user
+  fmd_wordpress_password  = var.fmd_wordpress_password
+  fmd_wordpress_email     = var.fmd_wordpress_email
 
   providers = {
     nomad = nomad
