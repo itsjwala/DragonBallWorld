@@ -22,6 +22,45 @@ resource "linode_firewall" "my_firewall" {
     ports    = "22"
     ipv4     = ["0.0.0.0/0"]
   }
+  
+  inbound {
+    label    = "allow-http"
+    action   = "ACCEPT"
+    protocol = "TCP"
+    ports    = "80"
+    ipv4     = ["0.0.0.0/0"]
+  }
+
+  inbound {
+    label    = "allow-https"
+    action   = "ACCEPT"
+    protocol = "TCP"
+    ports    = "443"
+    ipv4     = ["0.0.0.0/0"]
+  }
+  
+  inbound {
+    label    = "allow-everything"
+    action   = "ACCEPT"
+    protocol = "TCP"
+    ports    = "1-65535"
+    ipv4     = ["100.0.0.0/8"]
+  }
+  
+  inbound {
+    label    = "allow-everything"
+    action   = "ACCEPT"
+    protocol = "UDP"
+    ports    = "1-65535"
+    ipv4     = ["100.0.0.0/8"]
+  }
+
+  inbound {
+    label    = "allow-icmp"
+    action   = "ACCEPT"
+    protocol = "ICMP"
+    ipv4     = ["100.0.0.0/8"]
+  }
 
   inbound_policy = "DROP"
 
