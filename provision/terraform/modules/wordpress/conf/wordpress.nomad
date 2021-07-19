@@ -22,6 +22,23 @@ job "wordpress_fmd" {
       }
       
     }
+    
+    task "make_sure_mount_directories_exists" {
+      lifecycle {
+        hook = "prestart"
+        sidecar = false
+      }
+
+      driver = "raw_exec"
+      config {
+        command = "sh"
+        args = ["-c", "mkdir -p /opt/fmd/db && chown 1001:1001 -R /opt/fmd/db"]
+      }
+      resources {
+        cpu    = 1
+        memory = 10
+      }
+    }
 
     task "mysql_db" {
       driver = "docker"
@@ -31,7 +48,7 @@ job "wordpress_fmd" {
         // bind mount mysql directory for persistence
         mount {
           type     = "bind"
-          source   = "local"
+          source   = "/opt/fmd/db"
           target   = "/bitnami/mysql"
         }
         ports = ["mysql-port"]
@@ -91,6 +108,23 @@ job "wordpress_fmd" {
       }
     }
 
+    task "make_sure_mount_directories_exists" {
+      lifecycle {
+        hook = "prestart"
+        sidecar = false
+      }
+
+      driver = "raw_exec"
+      config {
+        command = "sh"
+        args = ["-c", "mkdir -p /opt/fmd/wordpress && chown 1001:1001 -R /opt/fmd/wordpress"]
+      }
+      resources {
+        cpu    = 1
+        memory = 10
+      }
+    }
+
     task "wordpress" {
       driver = "docker"
 
@@ -100,7 +134,7 @@ job "wordpress_fmd" {
         // bind mount mysql directory for persistence
         mount {
           type     = "bind"
-          source   = "local"
+          source   = "/opt/fmd/wordpress"
           target   = "/bitnami/wordpress"
         }
         ports = ["http","https"]
