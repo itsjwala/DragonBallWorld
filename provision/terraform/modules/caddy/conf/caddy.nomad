@@ -36,6 +36,12 @@ job "caddy" {
         command = "sh"
         args = ["-c", "mkdir -p /opt/caddy && chown nobody:nogroup /opt/caddy"]
       }
+
+      resources {
+        cpu    = 1
+        memory = 10
+      }
+      
     }
 
     task "proxy" {
@@ -137,6 +143,12 @@ job "caddy" {
         command = "sh"
         args = ["-c", "mkdir -p /opt/caddy && chown nobody:nogroup /opt/caddy"]
       }
+      
+      resources {
+        cpu    = 1
+        memory = 10
+      }
+
     }
 
     task "proxy" {
