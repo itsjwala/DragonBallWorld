@@ -29,7 +29,8 @@ module "wordpress_fmd" {
 
 module "caddy" {
   source = "./modules/caddy"
-  
+  cloudflare_api_token  = var.cloudflare_api_token
+  fmd_domain_name       = var.fmd_domain_name
   providers = {
     nomad = nomad
   }

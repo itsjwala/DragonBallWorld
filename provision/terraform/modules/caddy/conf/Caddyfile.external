@@ -1,7 +1,18 @@
-:80 {
+${fmd_domain_name} {
     {{ range service "fmd-wordpress" }}
     reverse_proxy {{ .Address }}:{{ .Port }}
     {{ end }}
+    tls {
+       dns cloudflare "${cloudflare_api_token}" 
+    }
+}
+
+www.${fmd_domain_name} {
+    tls {
+        
+       dns cloudflare "${cloudflare_api_token}" 
+    }
+    redir https://${fmd_domain_name}{uri} permanent
 }
 
 :8080 {

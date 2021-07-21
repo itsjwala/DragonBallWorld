@@ -92,8 +92,8 @@ job "wordpress_fmd" {
     }
 
     restart {
-      attempts = 2
-      interval = "2m"
+      attempts = 5
+      interval = "5m"
       delay    = "30s"
       mode     = "fail"
     }
