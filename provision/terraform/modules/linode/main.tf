@@ -59,7 +59,7 @@ resource "linode_firewall" "my_firewall" {
     label    = "allow-icmp"
     action   = "ACCEPT"
     protocol = "ICMP"
-    ipv4     = ["100.0.0.0/8"]
+    ipv4     = ["0.0.0.0/0"]
   }
 
   inbound_policy = "DROP"
