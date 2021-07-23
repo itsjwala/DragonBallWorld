@@ -22,5 +22,6 @@
 #Cache=no-negative
 #DNSStubListener=yes
 #ReadEtcHosts=yes
-DNS={{ ansible_facts.tailscale0.ipv4.address }}
+DNS={{ ansible_facts.tailscale0.ipv4.address }}{% if inventory_hostname == 'piccolo' %} 8.8.8.8 8.8.4.4 1.1.1.1
+{% endif %}
 Domains=~consul
