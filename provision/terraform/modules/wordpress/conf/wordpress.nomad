@@ -18,6 +18,7 @@ job "wordpress_fmd" {
     network {
       port "mysql-port" {
         to = 3306
+        static = 33306
         host_network = "tailscale"
       }
       
