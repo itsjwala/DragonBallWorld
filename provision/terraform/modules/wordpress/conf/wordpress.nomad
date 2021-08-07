@@ -62,8 +62,8 @@ job "wordpress_fmd" {
       }
 
       resources {
-        cpu    = 200
-        memory = 500
+        cpu    = 500
+        memory = 450
       }
 
       service {
@@ -167,8 +167,8 @@ job "wordpress_fmd" {
       }
 
       resources {
-        cpu    = 200
-        memory = 300
+        cpu    = 500
+        memory = 450
       }
 
       service {

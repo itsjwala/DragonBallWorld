@@ -76,7 +76,7 @@ job "caddy" {
 
       resources {
         cpu    = 100
-        memory = 100
+        memory = 50
       }
 
       template {
@@ -180,8 +180,8 @@ job "caddy" {
       }
 
       resources {
-        cpu    = 50
-        memory = 100
+        cpu    = 100
+        memory = 50
       }
 
       template {
