@@ -24,7 +24,9 @@ api.${fmd_domain_name} {
     tls {
        dns cloudflare "${cloudflare_api_token}" 
     }
-    respond {uri}
+    {{ range service "fmd-nodeapp" }}
+    reverse_proxy {{ .Address }}:{{ .Port }}
+    {{ end }}
 }
 
 :8080 {
