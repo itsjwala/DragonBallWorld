@@ -1,4 +1,10 @@
 ${fmd_domain_name} {
+    
+    route /api/* {
+        uri strip_prefix /api
+        redir https://api.${fmd_domain_name}{uri}
+    }
+
     {{ range service "fmd-wordpress" }}
     reverse_proxy {{ .Address }}:{{ .Port }}
     {{ end }}
@@ -9,10 +15,16 @@ ${fmd_domain_name} {
 
 www.${fmd_domain_name} {
     tls {
-        
        dns cloudflare "${cloudflare_api_token}" 
     }
     redir https://${fmd_domain_name}{uri} permanent
+}
+
+api.${fmd_domain_name} {
+    tls {
+       dns cloudflare "${cloudflare_api_token}" 
+    }
+    respond {uri}
 }
 
 :8080 {
