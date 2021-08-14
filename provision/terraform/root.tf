@@ -13,6 +13,13 @@ module "samba" {
   }
 }
 
+module "adguard" {
+  source = "./modules/adguard"
+  providers = {
+    nomad = nomad
+  }
+}
+
 module "wordpress_fmd" {
   source = "./modules/wordpress"
   

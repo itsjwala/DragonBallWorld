@@ -1,16 +1,19 @@
 nomad.itsjwala.local {
-    tls internal
     reverse_proxy 100.124.74.100:4646
 }
 
 consul.itsjwala.local {
-    tls internal
     reverse_proxy 100.124.74.100:8500
 }
 
 samba.itsjwala.local {
-    tls internal
     reverse_proxy 100.124.74.100:445
+}
+
+adguard.itsjwala.local {
+    {{ range service "adguard" }}
+    reverse_proxy {{ .Address }}:{{ .Port }}
+    {{ end }}
 }
 
 :8080 {
