@@ -11,7 +11,11 @@ client_addr = "{{ ansible_facts.tailscale0.ipv4.address }}"
 bind_addr = "{{ ansible_facts.tailscale0.ipv4.address }}"
 
 ports {
+{% if is_server is defined and is_server %}
+    dns = 5300
+{% else %}
     dns = 53
+{% endif %}
 }
 
 {% if is_server is not defined or (is_server is defined and not is_server) %}

@@ -54,20 +54,22 @@
   notify: Restart systemd-resolved
 
 # requires reboot of pi
-- name: setup dns resolver as consul 
-  template:
-    src: resolvconf.conf.j2
-    dest: /etc/resolvconf.conf
-  when: is_pi
-  tags: 
-      - consul_config
+# - name: setup dns resolver as consul 
+#   template:
+#     src: resolvconf.conf.j2
+#     dest: /etc/resolvconf.conf
+#   when: is_pi
+#   tags: 
+#       - consul_config
 
-- name: set CONSUL_ADDR in .bashrc for ease
+# removed after installation of adguard, consul dns is now upstream
+
+- name: set CONSUL_HTTP_ADDR in .bashrc for ease
   lineinfile:
     dest: "{{ ansible_env.HOME }}/.bashrc"
-    regexp: "^export CONSUL_ADDR"
+    regexp: "^export CONSUL_HTTP_ADDR"
     backrefs: yes
     line: |
-      export CONSUL_ADDR=http://{{ ansible_facts.tailscale0.ipv4.address }}:8500
+      export CONSUL_HTTP_ADDR=http://{{ ansible_facts.tailscale0.ipv4.address }}:8500
   tags:
       - bashrc

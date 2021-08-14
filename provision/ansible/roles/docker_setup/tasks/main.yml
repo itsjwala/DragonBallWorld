@@ -72,7 +72,11 @@
   when: not is_pi 
   tags: docker_compose
 
+- name: Install Docker-compose
+  shell: sudo curl -L "https://github.com/docker/compose-cli/releases/download/v2.0.0-beta.3/docker-compose-linux-armv7" -o /usr/local/bin/docker-compose
+  when: is_pi 
+  tags: docker_compose
+
 - name: Changing perm of /usr/local/bin/docker-compose
   file: dest=/usr/local/bin/docker-compose mode=a+x
-  when: not is_pi
   tags: docker_compose
