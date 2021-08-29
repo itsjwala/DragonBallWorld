@@ -106,7 +106,7 @@ job "caddy" {
     }
 
   }
-
+/*
   group "goku-external" {
     
     constraint {
@@ -213,7 +213,7 @@ job "caddy" {
 
     }
   }
-
+*/
   group "piccolo-external" {
     
     constraint {

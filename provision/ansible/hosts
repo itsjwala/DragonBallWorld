@@ -3,6 +3,5 @@ username=itsjwala
 github_ssh_key_url=https://github.com/itsjwala.keys
 
 [DragonBallWorld]
-goku
 gohan is_server=True
 piccolo username=jigar.w 
