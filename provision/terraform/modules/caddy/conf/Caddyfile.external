@@ -1,12 +1,18 @@
 ${fmd_domain_name}.tech {
     
-    route /api/* {
-        {{ range service "fmd-nodeapp" }}
-        reverse_proxy {{ .Address }}:{{ .Port }}
-        {{ end }}
+    @api {
+        path /api/*
+    }
+    
+    @not_api {
+        not path /api/*
     }
 
-    redir https://${fmd_domain_name}.github.io{uri} temporary
+    {{ range service "fmd-nodeapp" }}
+    reverse_proxy @api {{ .Address }}:{{ .Port }}
+    {{ end }}
+
+    redir @not_api https://blog.${fmd_domain_name}.tech{uri} temporary
 
     tls {
        dns cloudflare "${cloudflare_api_token}" 
