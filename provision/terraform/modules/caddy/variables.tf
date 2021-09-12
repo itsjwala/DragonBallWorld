@@ -9,3 +9,9 @@ variable "fmd_domain_name" {
   sensitive   = true
   description = "fmd domain name"
 }
+
+variable "aff1" {
+  type        = string
+  sensitive   = true
+  description = "aff1 domain name"
+}

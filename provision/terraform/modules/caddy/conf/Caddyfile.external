@@ -1,14 +1,12 @@
 ${fmd_domain_name}.tech {
     
-    
     @root_path {
-        path /
+        path_regexp ^/$
     }
 
     @api {
-        path /api/*
+        path_regexp ^/api/(.*)$
     }
-
 
     reverse_proxy @root_path https://${fmd_domain_name}.github.io 
 
@@ -16,6 +14,10 @@ ${fmd_domain_name}.tech {
     reverse_proxy @api {{ .Address }}:{{ .Port }}
     {{ end }}
 
+
+    handle_path /${aff1}/* {
+        redir https://www.${aff1}.in{uri}
+    }
 
     tls {
        dns cloudflare "${cloudflare_api_token}" 

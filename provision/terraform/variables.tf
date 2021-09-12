@@ -46,3 +46,9 @@ variable "fmd_wordpress_email" {
   sensitive   = true
   description = "fmd wordpress email"
 }
+
+variable "aff1" {
+  type        = string
+  sensitive   = true
+  description = "aff1 domain name"
+}

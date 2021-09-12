@@ -7,5 +7,6 @@ data "template_file" "Caddyfile-external" {
     vars = {
         cloudflare_api_token = var.cloudflare_api_token
         fmd_domain_name      = var.fmd_domain_name
+        aff1      = var.aff1
     }
 }

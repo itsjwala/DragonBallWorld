@@ -38,6 +38,7 @@ module "caddy" {
   source = "./modules/caddy"
   cloudflare_api_token  = var.cloudflare_api_token
   fmd_domain_name       = var.fmd_domain_name
+  aff1                  = var.aff1
   providers = {
     nomad = nomad
   }
